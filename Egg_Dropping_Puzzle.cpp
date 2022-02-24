@@ -24,22 +24,20 @@ using namespace std;
 #define yy cout<<"YES\n"
 #define nn cout<<"NO\n"
 #define pre(a) cout<<fixed<<setprecision(ll a)
+// #define vect(v, n) {vi v; rep(i, 0, n){ll x; cin>>x; v.pb(x);}}
 
 const int M=1e4+3, MOD=1e9+7;
 
 ll gcd(ll a,ll b) {if(b==0) return a; return gcd(b,a%b); }
 ll lcm(ll a,ll b) {return a/gcd(a,b)*b; }
-// ll vect(vi v, ll n) {vi v; rep(i, 0, n){ll x; cin>>x; v.pb(x);}}
 
 int main() {
     FAST;
 
-    ll t; t=1;
+    ll t; cin >> t;
     while (t--) {
-        ll a, b; cin >> a>> b;
-        // cout << a << " ";
-        ll ln=ceil(log2(b));
-        cout << ln+1 <<"\n";
+        ll n; cin >> n;
+        
     }
 
     return 0;
