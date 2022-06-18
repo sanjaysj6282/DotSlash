@@ -17,7 +17,7 @@ using namespace std;
 #define mii map<ll, ll>
 #define rep(i,a,b) for(ll i=a; i<b; i++)
 #define srt(v) sort(v.begin(), v.end())
-#define setcnt(n) __builtin_popcount(n) // no of one’s(set bits)
+#define setcnt(n) __builtin_popcount(n) // no of ones(set bits)
 #define bitcnt(n) (int)log2(n) // no of bits
 
 #define yy cout<<"YES\n"
@@ -178,6 +178,7 @@ string s, s1, s2;
 // 1   3   5 
 //     3
 
+// Terminated due to timeout
 void solve(){
     cin >> n;
     node* head =NULL;
