@@ -34,54 +34,62 @@ ll lcm(ll a,ll b) {return a/gcd(a,b)*b; }
 ll n, m, k, t;
 string s, s1, s2;
 
-bool sortbysec(pi &a, pi &b){
-    if(a.second == b.second)
-        return (a.ff > b.ff);
-    else
-        return (a.second < b.second);
+vector<int> V , P;
+
+vector<vector<vector<int>>> dp;
+
+int maxVitamin(int N , int M , int flag) {
+    if(dp[N][M][flag] != -1) 
+        return dp[N][M][flag];
+     
+    // Base Condition
+    if(N == 0) 
+        return 0;
+    
+    // Choice Diagram
+    if(flag == 1) {
+        if(P[N-1] > M) 
+            return dp[N][M][flag] = maxVitamin(N-1 , M , flag);
+        else 
+            return dp[N][M][flag] = max(V[N-1] + maxVitamin(N-1 , M-P[N-1] , flag) , maxVitamin(N-1 , M , flag));
+    }
+    else {
+        if(P[N-1] > M) {
+            if(P[N-1]/2 > M) 
+                return dp[N][M][flag] = maxVitamin(N-1 , M , flag);
+            else 
+                return dp[N][M][flag] = max(V[N-1] + maxVitamin(N-1 , M-(P[N-1]/2) , 1) , maxVitamin(N-1 , M , 0));
+        }
+        else {
+            int x = maxVitamin(N-1 , M , flag);
+            int y = V[N-1] + maxVitamin(N-1 , M-P[N-1] , 0);
+            int z = V[N-1] + maxVitamin(N-1 , M-(P[N-1]/2) , 1);
+            return dp[N][M][flag] = max({x , y , z});
+        }
+    }
 }
 
-void solve(){
-    cin >> n >> m;
-    vi vit, price;
-    rep(i, 0, n){
-        ll x, y; cin >> x >> y;
-        vit.pb(x);
-        price.pb(y);
+void solve() {
+    int N , M , i;
+    
+    // Reading N and M
+    cin >> N >> M;
+
+    // Initialization
+    V = vector<int> (N);
+    P = vector<int> (N);
+    dp = vector<vector<vector<int>>> (N+5 , vector<vector<int>> (M+5 , vector<int> (2 , -1)));
+
+    // Reading type[i] , V[i] and P[i]
+    for(i = 0 ; i < N ; ++i) {
+        cin >> V[i] >> P[i];
     }
 
-    vii v;
-    rep(i, 0, n){
-        v.pb({vit[i], price[i]});
-        // cout << v[i].ff <<" " << v[i].ss << " ";
-    }
+    // Call for recursive dp function
+    int ans = maxVitamin(N , M , 0);
 
-    sort(v.begin(), v.end(), sortbysec);
-
-    // rep(i, 0, n){
-    //     // v.pb({vit[i], price[i]});
-    //     cout << v[i].ff <<" " << v[i].ss << endl;
-    // }
-
-    ll ans=0;
-    priority_queue<ll,vi> pq;
-    rep(i, 0, n){
-        if(v[i].ss<=m){
-            ans+=v[i].ff;
-            m-=v[i].ss;
-
-            // cout << v[i].ff << " " << v[i].ss << endl;
-        }
-        else if(floor(v[i].ss/2)<=m){
-            pq.push(v[i].ff);
-            // cout << v[i].ff << " ";
-        }
-    }
-
-    if(!pq.empty())
-        ans+=pq.top();
-
-    cout << ans << endl;
+    // Printing the answer
+    cout << ans << "\n";
 }
 
 int32_t main() {
