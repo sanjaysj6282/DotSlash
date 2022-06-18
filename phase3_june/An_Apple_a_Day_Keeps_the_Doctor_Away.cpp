@@ -70,11 +70,11 @@ void solve(){
             ans+=v[i].ff;
             m-=v[i].ss;
 
-            cout << v[i].ff << " " << v[i].ss << endl;
+            // cout << v[i].ff << " " << v[i].ss << endl;
         }
         else if(floor(v[i].ss/2)<=m){
             pq.push(v[i].ff);
-            cout << v[i].ff << " ";
+            // cout << v[i].ff << " ";
         }
     }
 
