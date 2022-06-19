@@ -64,28 +64,31 @@ void solve(){
     }
 
     vi ans;
+    
+    rep(i, 0, n)
+        if(mdSum!=rowSum[i])
+            ans.pb((i+1));  
 
-    if(mdSum!=amdSum){
+    if(mdSum!=amdSum)
         ans.pb(0);
-    }
 
-    rep(i, 0, n){
-        if(mdSum!=rowSum[i]){
-            ans.pb((i+1));
-        }
-    }
-    rep(i, 0, n){
-        if(mdSum!=colSum[i]){
+    rep(i, 0, n)
+        if(mdSum!=colSum[i])
             ans.pb((-1*(i+1)));
-        }
-    }
+        
 
+    if(ans.size()==0){
+        cout << 0 << endl;
+        return;
+    }
+    
     ans.pb(ans.size());
     reverse(ans.begin(), ans.end());
 
-    rep(i, 0, ans.size()){
+    rep(i, 0, (ll) ans.size()){
         cout << ans[i] <<endl;
     }
+
 
     // rep(i, 0, n){
     //     cout << rowSum[i] << " ";
