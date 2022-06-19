@@ -39,19 +39,81 @@ void solve(){
     cin >> base;
     string norep; cin >> norep;
 
-    mii representation;
+    mii representation; 
+    map<ll, char> representationrev;
     rep(i, 0, base){
         representation[norep[i]]=i;
+        representationrev[i]=norep[i];
     }
 
     string n1; string n2;
     cin >> n1; cin >> n2;
 
+    string max_string, min_string;
+    if(n1.length() <= n2.length()){
+        min_string=n1;
+        max_string=n2;
+    }
+    else{
+        max_string=n1;
+        min_string=n2;
+    }
+
+    reverse(max_string.begin(), max_string.end());
+    reverse(min_string.begin(), min_string.end());
+
+    ll carry=0;
+    string ans="";
+
+    // cout << min_string <<endl;
+    // cout << max_string << endl;
+    rep(i, 0, min_string.length()){
+        ll currVal=representation[min_string[i]]+representation[max_string[i]];
+        ll currValwocarry=(currVal+carry)%base;
+        // cout << currVal << " ";
+        // cout << currValwocarry << endl;
+        if(currVal>=base){
+            carry=1;
+        }
+        else{
+            carry=0;
+        }
+        ans+=representationrev[currValwocarry];
+        // cout << ans << " ";
+    }
+
+    if(carry==1 && min_string.length()==max_string.length()){
+        ans+=norep[1];
+    }
+    else{
+        rep(i, min_string.length(), max_string.length()){
+            ll currVal=representation[max_string[i]];
+            ll currValwocarry=(currVal+carry)%base;
+            // cout << currVal << " ";
+            // cout << currValwocarry << endl;
+            if(currVal>=base){
+                carry=1;
+            }
+            else{
+                carry=0;
+            }
+            ans+=representationrev[currValwocarry];
+            // cout << ans << " ";
+        }
+        // rep(i, min_string.length(), max_string.length()){
+        //     ll currValwocarry=representation[max_string[i]];
+        //     ans+=representationrev[currValwocarry];
+        // }
+    }
+
+    reverse(ans.begin(), ans.end());
+    cout << ans << endl;
+
     // rep(i, 0, n1.length()){
     //     cout << representation[n1[i]] << " ";
     // }
 
-    
+
 }
 
 int32_t main() {
