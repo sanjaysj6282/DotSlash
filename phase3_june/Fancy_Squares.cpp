@@ -65,7 +65,7 @@ void solve(){
 
     vi ans;
     
-    rep(i, 0, n)
+    for(ll i=n-1; i>=0; i--)
         if(mdSum!=rowSum[i])
             ans.pb((i+1));  
 
@@ -81,7 +81,7 @@ void solve(){
         cout << 0 << endl;
         return;
     }
-    
+
     ans.pb(ans.size());
     reverse(ans.begin(), ans.end());
 
