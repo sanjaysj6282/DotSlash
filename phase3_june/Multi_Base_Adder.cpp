@@ -67,31 +67,33 @@ void solve(){
 
     // cout << min_string <<endl;
     // cout << max_string << endl;
-    rep(i, 0, min_string.length()){
+    rep(i, 0, (ll) min_string.length()){
         ll currVal=representation[min_string[i]]+representation[max_string[i]];
         ll currValwocarry=(currVal+carry)%base;
         // cout << currVal << " ";
         // cout << currValwocarry << endl;
-        if(currVal>=base){
+        if(currVal>=base-carry)
             carry=1;
-        }
-        else{
+        else
             carry=0;
-        }
         ans+=representationrev[currValwocarry];
         // cout << ans << " ";
     }
-
+    
+    // carry==0, same --> correct
+    // carry==0, diff --> correct
+    // carry==1, same --> correct
+    // carry==1, diff --> incorrect
     if(carry==1 && min_string.length()==max_string.length()){
         ans+=norep[1];
     }
     else{
-        rep(i, min_string.length(), max_string.length()){
+        rep(i, (ll) min_string.length(), (ll) max_string.length()){
             ll currVal=representation[max_string[i]];
             ll currValwocarry=(currVal+carry)%base;
             // cout << currVal << " ";
             // cout << currValwocarry << endl;
-            if(currVal>=base){
+            if(currVal>=base-carry){
                 carry=1;
             }
             else{
@@ -100,20 +102,41 @@ void solve(){
             ans+=representationrev[currValwocarry];
             // cout << ans << " ";
         }
-        // rep(i, min_string.length(), max_string.length()){
-        //     ll currValwocarry=representation[max_string[i]];
-        //     ans+=representationrev[currValwocarry];
-        // }
+        if(carry==1){
+            ans+=norep[1];
+        }     
     }
 
     reverse(ans.begin(), ans.end());
     cout << ans << endl;
 
-    // rep(i, 0, n1.length()){
-    //     cout << representation[n1[i]] << " ";
+    // else if(carry==1 && min_string.length()!=max_string.length()){
+    //     // cout << ans << endl;
+    //     // while(carry==1){
+    //         rep(i, (ll) min_string.length(), (ll) max_string.length()){
+    //             ll currVal=representation[max_string[i]];
+    //             ll currValwocarry=(currVal+carry)%base;
+    //             // cout << currVal << " ";
+    //             // cout << currValwocarry << " ";
+    //             // cout << carry << endl;
+
+    //             ll add=currVal+carry;
+    //             if(add>=base){
+    //                 carry=1;
+    //             }
+    //             else{
+    //                 carry=0;
+    //             }
+    //             // cout << carry << endl;
+    //             ans+=representationrev[currValwocarry];
+    //             // cout << ans << " ";
+    //         }
+    //         // cout << carry << endl;
+    //         if(carry==1){
+    //             ans+=norep[1];
+    //         }
+    //     // }
     // }
-
-
 }
 
 int32_t main() {
